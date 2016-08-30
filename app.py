@@ -28,12 +28,12 @@ def index():
         # request was a POST
         app.vars['name'] = request.form['name_lulu']
         app.vars['option'] = request.form['option_lulu']
-        '''
+        
         f = open('%s.txt'%(app.vars['name']),'w')
         f.write('Symbol: %s\n'%(app.vars['name']))
         f.write('Option: %s\n'%(app.vars['option']))
         f.close()
-		'''
+		
         return redirect('/finish')
 
 @app.route('/finish')
