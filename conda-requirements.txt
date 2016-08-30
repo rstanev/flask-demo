@@ -1,6 +1,6 @@
 scipy
 numpy
 pandas
-bokeh
 requests
 quandl
+bokeh
