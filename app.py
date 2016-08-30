@@ -2,7 +2,6 @@
 
 import numpy as np
 import pandas as pd
-import requests
 import quandl
 
 from flask import Flask, render_template, request, redirect
