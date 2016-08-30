@@ -28,12 +28,12 @@ def index():
         # request was a POST
         app.vars['name'] = request.form['name_lulu']
         app.vars['option'] = request.form['option_lulu']
-        
+        '''
         f = open('%s.txt'%(app.vars['name']),'w')
         f.write('Symbol: %s\n'%(app.vars['name']))
         f.write('Option: %s\n'%(app.vars['option']))
         f.close()
-		
+		'''
         return redirect('/finish')
 
 @app.route('/finish')
@@ -42,7 +42,6 @@ def finish_():
 	data = quandl.get('WIKI/%s'%(app.vars['name']))
 
 	data[app.vars['option']].plot()
-	print 'Got data and plot'
 	#plt.show()
 	#plt.savefig('%s.png'%(app.vars['name']))
 		
@@ -51,12 +50,11 @@ def finish_():
 	_plot = TimeSeries(data[app.vars['option']], color='blue', legend=True, title='%s Stock Price'%(app.vars['name']))
 	_plot.xaxis.axis_label = 'Date'
 	_plot.yaxis.axis_label = 'Price'
-	print 'Set plot now about to output file'
-	output_file('%s.html'%(app.vars['name']))
-	print 'output file'
-	show(_plot)
-	print 'show plot'
 	
+	'''
+	output_file('%s.html'%(app.vars['name']))
+	show(_plot)
+	'''
 	#return render_template('end_lulu.html')
 	return redirect('/index')
 	
