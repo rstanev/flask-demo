@@ -39,7 +39,7 @@ def index():
 @app.route('/finish')
 def finish_():
 	
-	data = quandl.get('WIKI/%s'%(app.vars['name']))
+	#data = quandl.get('WIKI/%s'%(app.vars['name']))
 
 	#data[app.vars['option']].plot()
 	#plt.show()
