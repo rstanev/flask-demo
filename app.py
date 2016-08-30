@@ -1,6 +1,6 @@
 # Testing GitHub - rstanev@gmail.com
-#import pandas as pd
-#import requests
+import pandas as pd
+import requests
 
 from flask import Flask, render_template, request, redirect
 
