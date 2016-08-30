@@ -41,16 +41,16 @@ def finish_():
 	
 	data = quandl.get('WIKI/%s'%(app.vars['name']))
 
-	data[app.vars['option']].plot()
+	#data[app.vars['option']].plot()
 	#plt.show()
 	#plt.savefig('%s.png'%(app.vars['name']))
 		
 	#output_notebook()
-	
+	'''
 	_plot = TimeSeries(data[app.vars['option']], color='blue', legend=True, title='%s Stock Price'%(app.vars['name']))
 	_plot.xaxis.axis_label = 'Date'
 	_plot.yaxis.axis_label = 'Price'
-	
+	'''
 	'''
 	output_file('%s.html'%(app.vars['name']))
 	show(_plot)
