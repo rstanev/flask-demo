@@ -11,4 +11,3 @@ numpy
 pandas
 quandl
 bokeh
-matplotlib

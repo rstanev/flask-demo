@@ -3,7 +3,6 @@
 import numpy as np
 import pandas as pd
 import quandl
-import matplotlib.pyplot as plt
 
 from flask import Flask, render_template, request, redirect
 from bokeh.plotting import show, output_file, output_notebook
@@ -43,7 +42,8 @@ def finish_():
 	data = quandl.get('WIKI/%s'%(app.vars['name']))
 
 	data[app.vars['option']].plot()
-	plt.show()
+	print 'Got data and plot'
+	#plt.show()
 	#plt.savefig('%s.png'%(app.vars['name']))
 		
 	#output_notebook()
@@ -51,12 +51,14 @@ def finish_():
 	_plot = TimeSeries(data[app.vars['option']], color='blue', legend=True, title='%s Stock Price'%(app.vars['name']))
 	_plot.xaxis.axis_label = 'Date'
 	_plot.yaxis.axis_label = 'Price'
-	
-	#output_file('%s.html'%(app.vars['name']))
-	#show(_plot)
+	print 'Set plot now about to output file'
+	output_file('%s.html'%(app.vars['name']))
+	print 'output file'
+	show(_plot)
+	print 'show plot'
 	
 	#return render_template('end_lulu.html')
 	return redirect('/index')
 	
 if __name__ == "__main__":
-    app.run(port=33507)
+    app.run(port=33507, debug=True)
