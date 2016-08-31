@@ -4,11 +4,15 @@ import numpy as np
 import pandas as pd
 import quandl
 import requests
-import json
+import simplejson
+import bokeh
 
 from flask import Flask, render_template, request, redirect
 from bokeh.plotting import show, output_file
 from bokeh.charts import TimeSeries
+from bokeh.embed import components
+
+bv = bokeh.__version__
 
 app = Flask(__name__)
 
@@ -61,8 +65,11 @@ def finish_():
 	_plot.xaxis.axis_label = 'Date'
 	_plot.yaxis.axis_label = '(%s) Price'%(app.vars['option'])
 
-	show(_plot)
+	#show(_plot)
 
+	script, div = components(_plot)
+	return render_template('graph.html',bv=bv,name=app.vars['name'],script=script,div=div)
+							
 	#data = quandl.get('WIKI/%s'%(app.vars['name']))
 
 	#data[app.vars['option']].plot()
