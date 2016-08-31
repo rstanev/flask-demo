@@ -3,18 +3,16 @@
 import numpy as np
 import pandas as pd
 import quandl
-import requests
-import json
 
 from flask import Flask, render_template, request, redirect
-from bokeh.plotting import show, output_file
+from bokeh.plotting import show, output_file, output_notebook
 from bokeh.charts import TimeSeries
 
 app = Flask(__name__)
 
 app.vars={}
 
-#quandl.ApiConfig.api_key = 'HWZYrHmanku_oE1Ydh5g'
+quandl.ApiConfig.api_key = 'HWZYrHmanku_oE1Ydh5g'
 
 @app.route('/')
 def main():
@@ -25,7 +23,7 @@ def index():
     #nquestions=app.nquestions
     if request.method == 'GET':
         return render_template('userinfo_lulu.html',num=1,question='Which daily price value do you want?',ans1='Open',\
-            ans2='High',ans3='Low',ans4='Close')
+            ans2='Close',ans3='High')
     else:
         # request was a POST
         app.vars['name'] = request.form['name_lulu']
@@ -41,28 +39,6 @@ def index():
 @app.route('/finish')
 def finish_():
 	
-	req_='https://www.quandl.com/api/v3/datasets/WIKI/%s.json?&collapse=daily'%(app.vars['name'])
-
-	r = requests.get(req_)
-	
-	cols = r.json()['dataset']['column_names'][0:5]
-	df = pd.DataFrame(np.array(r.json()['dataset']['data'])[:,0:5],columns=cols)
-	df.Date = pd.to_datetime(df.Date)
-	df[['Open','High','Low','Close']] = df[['Open','High','Low','Close']].astype(float)
-
-	d = dict(
-    	Option=df[app.vars['option']],
-    	Date=df['Date'],
-	)
-
-	_plot = TimeSeries(d, x='Date', y='Option', color='blue', \
-	title='%s Stock Price'%(app.vars['name']), legend='top_left')
-	
-	_plot.xaxis.axis_label = 'Date'
-	_plot.yaxis.axis_label = '(%s) Price'%(app.vars['option'])
-
-	show(_plot)
-
 	#data = quandl.get('WIKI/%s'%(app.vars['name']))
 
 	#data[app.vars['option']].plot()
